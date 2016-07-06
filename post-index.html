@@ -1,0 +1,119 @@
+<style type="text/css">
+  #toc_container{background: #f9f9f9;border: 1px solid #aaa;padding: 0 10px;margin-bottom: 1em;font-size:95%;}p.toc_title,ul.toc_list {margin: 5px;padding-left: 0;}.toc_list li {list-style: none;margin-top: 0px; margin: 0!important;}#toc_container a {text-decoration: none;text-shadow: none;color: black;font-weight: 400;}#toc_container a:hover {color: #E9573F;text-decoration: underline;}span.accordion{cursor: pointer;}div.panel {padding: 0 18px;max-height: 0;overflow: hidden;opacity: 0;}div.panel.show {opacity: 1;max-height:500px;}
+</style>
+<div style="text-align: justify;">
+Redirect (chuyển hướng) là việc khi người dùng xem một trang web thì được chuyển sang một trang web với tên miền khác. Điều này thật sự cần thiết nếu bạn không muốn mất đi lượt truy cập của mình khi chuyển sang tên miền mới mà độc giả vẫn chưa tiếp cận được tên miền này.</div>
+<br />
+<div id="toc_container">
+Nội dung chính <span class="accordion active">[Ẩn/Hiện]</span>
+<div class="panel show">
+<ul class="toc_list">
+<li><a href="#Cach_1_Thu_cong">Cách 1: Chuyển hướng thủ công</a></li>
+<li><a href="#Cach_2_redirect">Cách 2: Sử dụng Redirect 301 cho Blogger Blogspot</a></li>
+<li><a href="#Cach_3_javascript">Cách 3: Sử dụng Javascript</a></li>
+<li><a href="#Cach_4_redirect_all">Cách 4:Tự động chuyển hướng Redirect tất cả liên kết</a></li>
+</ul>
+</div>
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+  }
+}
+</script>
+
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<img border="0" src="https://2.bp.blogspot.com/-Nr53vNZk6Uw/V3tm4EDwTEI/AAAAAAAACHU/3swsCqcFU5kBzqEy8Zs5MnTp_N26VR9nACK4B/s400/redirect%2BBlofspot.png" /></div>
+<h3>
+<span id="Cach_1_Thu_cong">
+Cách 1: Chuyển hướng thủ công</span></h3>
+Chuyển hướng bằng cách ghi tên miền trực tiếp lên website cũ cho người dùng biết đã chuyển qua trang web mới, người đọc phải click vào liên kết để chuyển sang site mới<br />
+<h3>
+<span id="Cach_2_redirect">
+Cách 2: Sử dụng Redirect 301 cho Blogger Blogspot</span></h3>
+Thêm đoạn code dưới đây vào sau thẻ <code>&lt;head&gt;</code> trong template<br />
+<pre><code>&lt;meta http-equiv="refresh" content="<span style="background-color: yellow;">5</span>;url=<span style="background-color: yellow;">https://duczone.blogspot.com</span>/"&gt;</code></pre>
+<div>
+Giải thích: Sau <span style="background-color: yellow;">5</span> giây (s), trang web sẽ tự động được chuyển tới trang web mới có tên miền&nbsp;<span style="background-color: yellow;">https://duczone.blogspot.com</span>&nbsp;, hãy thay đổi theo ý bạn</div>
+<div>
+<b>Ưu điểm</b>: chuyển hướng tự động</div>
+<div>
+<b>Nhược điểm</b>: - Người đọc bị thụ động, không biết được trang web mình đang xem sẽ tự động chuyển sang trang mới trong bao lâu.</div>
+<div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Chỉ chuyển sang được trang chủ</div>
+<h3>
+<span id="Cach_3_javascript">
+Cách 3: Sử dụng Javascript</span></h3>
+<div>
+Thay thế toàn bộ code trong template của bạn bằng code bên dưới:</div>
+<div>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;HTML&gt;
+&amp;lt;head&amp;gt;
+&amp;lt;style&amp;gt;&amp;lt;!--/*&lt;b:skin&gt;&lt;![CDATA[
+*/]]&gt;&lt;/b:skin&gt;
+&lt;style type='text/css'&gt;
+#contain{position:absolute;z-index:9;top:32%;left:0;right:0;margin:auto;color:#3498db;}
+#contain h1{text-align:center;font-weight:600;font-size:4em;text-transform:uppercase;}
+#contain p{text-align:center;font-size:3em;font-weight:600}
+#contain p.smallest{color:#3498db;font-size:14px}
+#contain a{color:#3498db;font-weight:600}#contain span{font-weight:600}
+#contain a:hover{color:#3498db;text-decoration:line-through}
+#contain p.smallest a{color:#3498db;font-weight:200}
+#contain p.smallest a:hover{text-decoration:line-through}
+&lt;/style&gt;
+&lt;script type='text/javascript'&gt;
+&nbsp; var count = <span style="background-color: yellow;">5</span>; // Timer
+&nbsp; var redirect = "<span style="background-color: yellow;">https://duczone.blogspot.com</span>"; // Target URL
+&nbsp; function countDown() {
+&nbsp; &nbsp; var timer = document.getElementById("timer"); // Timer ID
+&nbsp; &nbsp; if (count &gt; 0) {
+&nbsp; &nbsp; &nbsp; count--;
+&nbsp; &nbsp; &nbsp; timer.innerHTML = "<span style="background-color: yellow;">Bạn sẽ được chuyển tới Duczone trong</span> " + count + " <span style="background-color: yellow;">giây nữa</span>."; // Timer Message
+&nbsp; &nbsp; &nbsp; setTimeout("countDown()", 1000);
+&nbsp; &nbsp; } else {
+&nbsp; &nbsp; &nbsp; window.location.href = redirect;
+&nbsp; &nbsp; }
+&nbsp; }
+&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+&lt;/script&gt;
+&nbsp;&amp;lt;/head&amp;gt;&amp;lt;!--&lt;head/&gt;--&amp;gt;
+&nbsp;&lt;body&gt;
+&lt;div id='contain'&gt;
+&lt;h1&gt;<span style="background-color: yellow;">Xin lỗi các bạn, trang này không còn tồn tại</span> &lt;/h1&gt;
+&lt;p id='timer'&gt;
+&lt;script type='text/javascript'&gt;
+countDown();
+&lt;/script&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;b:section class='duczone' id='duczone' preferred='no' /&gt;
+&amp;lt;!--&lt;/body&gt;--&amp;gt;&amp;lt;/body&amp;gt;
+&lt;/HTML&gt;</code></pre>
+</div>
+<div>
+Thay tất cả dòng màu vàng theo ý bạn, với giá trị 5 là thời gian (giây);&nbsp;<span style="background-color: yellow;">https://duczone.blogspot.com</span> là trang mới sẽ được chuyển đến.</div>
+<div>
+<b><a href="https://cdn.rawgit.com/duczone/Demo-html/master/redirect-blogspot.html" target="_blank">Demo</a></b></div>
+<div>
+<b>Ưu điểm</b>: &nbsp; &nbsp; &nbsp; - Chuyển hướng tự động</div>
+<div>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Có đếm ngược thời gian</div>
+<div>
+<b>Nhược điểm</b>: tất cả liên kết khác nhau từ trang web cũ sẽ chỉ được chuyển tới trang chủ tên miền mới, ví dụ như liên kết cũ <i>http://trang-cũ.com; http://trang-cũ.com/abc.html; http://trang-cũ.com/xyz.html</i> đều chỉ được chuyển tới trang <i>http://trang-mới.com</i>. Điều này bất lợi khi người đọc hoặc trang tìm kiếm trỏ tất cả các liên kết của trang web cũ sang trang chủ của site mới</div>
+<h3>
+<span id="Cach_4_redirect_all">
+Cách 4: Tự động chuyển hướng Redirect tất cả liên kết&nbsp;</span></h3>
+<div>
+Với phương pháp này, bạn có thể chuyển hướng tất cả liên kết của trang web cũ sang trang mới, ví dụ <i>http://trang-cũ.com; http://trang-cũ.com/abc.html; http://trang-cũ.com/xyz.html</i> sẽ được chuyển hướng tới &nbsp;<i>http://trang-mới.com; http://trang-mới.com/abc.html; http://trang-mới.com/xyz.html</i></div>
+<div>
+Bởi vì phần này khá dài nên mình làm thành một bài viết riêng, bạn có thể đọc<a href="http://duczone.blogspot.com/2016/07/tu-dong-chuyen-huong-redirect-tat-ca-lien-ket-blogspot.html" target="_blank"> ở đây</a>&nbsp;</div>
+<div class='clear'></div>
